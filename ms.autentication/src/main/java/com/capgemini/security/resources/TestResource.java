@@ -1,4 +1,4 @@
-package com.example.security.resources;
+package com.capgemini.security.resources;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;

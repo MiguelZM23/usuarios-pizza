@@ -1,14 +1,16 @@
-package com.example.security.resources;
+package com.capgemini.security.resources;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.security.dtos.AuthToken;
-import com.example.security.dtos.BasicCredential;
+import com.capgemini.security.dtos.AuthToken;
+import com.capgemini.security.dtos.BasicCredential;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,12 +31,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserResource {
 	@Value("${jwt.secret}")
 	private String SECRET;
-
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@RequestMapping(path = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<AuthToken> login(@RequestParam("name") String username, @RequestParam("password") String pwd) {		
 		//Realizar proceso de autenticación	
-			if("falla".compareToIgnoreCase(username) == 0)
-				return ResponseEntity.notFound().build();				
+//			var usr = dao.findById(username);
+//			if(usr.isEmpty())
+//				throw new Exception("Error datos incorrectos");
+//			if(!passwordEncoder.matches(pwd, usr.get().getPassword());
+//				throw new Exception("Error datos incorrectos");
+//			if("falla".compareToIgnoreCase(username) == 0)
+//				return ResponseEntity.notFound().build();				
 		// ---------------------------
 		return ResponseEntity.ok(new AuthToken(true, getJWTToken(username), username));		
 	}
@@ -61,4 +71,10 @@ public class UserResource {
 						SECRET.getBytes()).compact();
 		return "Bearer " + token;
 	}
+	
+	/**
+	 * /register (anonimo)
+	 * /profile (Authorization) (get, put) menos la contraseña
+	 * /users (Admin)(get, post, put, delete) + roles menos la contraseña
+	 */
 }

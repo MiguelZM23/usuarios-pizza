@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import com.capgemini.application.dtos.UsuarioDTO;
 import com.capgemini.application.resources.UsuarioResource;
 import com.capgemini.domains.contracts.services.UsuarioService;
+import com.capgemini.domains.entities.Funcion;
 import com.capgemini.exceptions.DuplicateKeyException;
 import com.capgemini.exceptions.InvalidDataException;
 import com.capgemini.exceptions.NotFoundException;
@@ -30,12 +31,13 @@ import com.capgemini.exceptions.NotFoundException;
 //@AutoConfigureMockMvc
 class UsuarioResourceTest {
 	List<UsuarioDTO> listado;
+	List<Funcion> funciones;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		listado = new ArrayList<UsuarioDTO>();
-		listado.add(new UsuarioDTO(1, "pepe", "Gonzalez", "Guerra", "123456", "123456789", "pepe@pepe.com"));
-		listado.add(new UsuarioDTO(2, "Maria", "Gonzalez", "Guerra", "123456", "123456789", "maria@maria.com"));
+		listado.add(new UsuarioDTO(1, "pepe", "Gonzalez", "Guerra", "123456", "123456789", "pepe@pepe.com", funciones ));
+		listado.add(new UsuarioDTO(2, "Maria", "Gonzalez", "Guerra", "123456", "123456789", "maria@maria.com", funciones));
 	}
 
 	public static class IoCTestConfig {

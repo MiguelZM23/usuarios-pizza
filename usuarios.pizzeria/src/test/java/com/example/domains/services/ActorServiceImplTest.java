@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import com.capgemini.application.dtos.UsuarioDTO;
 import com.capgemini.domains.contracts.repositories.UsuarioRepository;
+import com.capgemini.domains.entities.Funcion;
 import com.capgemini.domains.entities.Usuario;
 import com.capgemini.domains.services.UsuarioServiceImpl;
 import com.capgemini.exceptions.DuplicateKeyException;
@@ -24,13 +25,14 @@ import com.capgemini.exceptions.NotFoundException;
 
 class UsuarioServiceImplTest {
 	List<Usuario> listado;
+	List<Funcion> funciones;
 	UsuarioRepository dao;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		listado = new ArrayList<Usuario>();
-		listado.add(new Usuario(1, "pepe", "Gonzalez", "Guerra", "123456", "123456789", "pepe@pepe.com"));
-		listado.add(new Usuario(2, "Maria", "Gonzalez", "Guerra", "123456", "123456789", "maria@maria.com"));
+		listado.add(new Usuario(1, "pepe", "Gonzalez", "Guerra", "123456", "123456789", "pepe@pepe.com", funciones));
+		listado.add(new Usuario(2, "Maria", "Gonzalez", "Guerra", "123456", "123456789", "maria@maria.com", funciones));
 		dao = mock(UsuarioRepository.class);
 	}
 

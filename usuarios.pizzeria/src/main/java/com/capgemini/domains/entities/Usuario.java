@@ -60,7 +60,7 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 	}
 
 	public Usuario(int usuarioId, String nombre2, String apellido1, String apellido2, String password2,
-			String telefono2, String email2) {
+			String telefono2, String email2, List<Funcion> funciones) {
 		super();
 		this.idUsuario = usuarioId;
 		this.nombre = nombre2;
@@ -69,6 +69,7 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 		this.password = password2;
 		this.telefono = telefono2;
 		this.email = email2;
+		this.funciones = funciones;
 	}
 
 	public int getIdUsuario() {

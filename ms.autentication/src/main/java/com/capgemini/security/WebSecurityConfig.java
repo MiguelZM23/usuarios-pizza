@@ -1,4 +1,4 @@
-package com.example.security;
+package com.capgemini.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
