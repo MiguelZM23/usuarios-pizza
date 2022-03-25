@@ -24,9 +24,8 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_usuario")
-	private int idUsuario;
+	@Length(min=3, max=100)
+	private String username;
 	
 	@NotBlank
 	@Length(min=2, max=50)
@@ -48,44 +47,47 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 	private String telefono;
 	
 	@NotBlank
-	@Length(min=3, max=50)
-	private String email;
+	@Length(min=2, max=50)
+	private String rol;
 	
-	//bi-directional many-to-one association to Funcion
-	@OneToMany(mappedBy="usuario")
-	@JsonIgnore
-	private List<Funcion> funciones;
+	
+	
 
 	public Usuario() {
 	}
 
-	public Usuario(int usuarioId, String nombre2, String apellido1, String apellido2, String password2,
-			String telefono2, String email2, List<Funcion> funciones) {
+	public Usuario(String nombre2, String apellido1, String apellido2, String password2,
+			String telefono2, String username, String rol) {
 		super();
-		this.idUsuario = usuarioId;
 		this.nombre = nombre2;
 		this.primerApellido = apellido1;
 		this.segundoApellido = apellido2;
 		this.password = password2;
 		this.telefono = telefono2;
-		this.email = email2;
-		this.funciones = funciones;
+		this.username = username;
+		this.rol = rol;
+		
+	}
+	
+	public Usuario(int idUser, String nombre2, String apellido1, String apellido2, String password2,
+			String telefono2, String username2, String rol) {
+		super();
+		this.nombre = nombre2;
+		this.primerApellido = apellido1;
+		this.segundoApellido = apellido2;
+		this.password = password2;
+		this.telefono = telefono2;
+		this.username = username2;
+		this.rol = rol;
+		
 	}
 
-	public int getIdUsuario() {
-		return this.idUsuario;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getNombre() {
@@ -128,31 +130,17 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<Funcion> getFunciones() {
-		return this.funciones;
+	public String getRol() {
+		return rol;
 	}
 
-	public void setFunciones(List<Funcion> funciones) {
-		this.funciones = funciones;
-	}
-
-	public Funcion addFuncione(Funcion funcione) {
-		getFunciones().add(funcione);
-		funcione.setUsuario(this);
-
-		return funcione;
-	}
-
-	public Funcion removeFuncione(Funcion funcione) {
-		getFunciones().remove(funcione);
-		funcione.setUsuario(null);
-
-		return funcione;
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idUsuario);
+		return Objects.hash(username);
 	}
 
 	@Override
@@ -164,15 +152,19 @@ public class Usuario extends EntityBase<Usuario> implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return idUsuario == other.idUsuario;
+		return username.equals(other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", primerApellido=" + primerApellido
+		return "Usuario [username=" + username + ", nombre=" + nombre + ", primerApellido=" + primerApellido
 				+ ", segundoApellido=" + segundoApellido + ", password=" + password + ", telefono=" + telefono
-				+ ", email=" + email + ", funciones=" + funciones + "]";
+				+ ", rol=" + rol + "]";
 	}
+
+	
+
+	
 	
 	
 	

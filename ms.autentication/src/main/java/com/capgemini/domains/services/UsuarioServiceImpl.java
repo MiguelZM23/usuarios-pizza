@@ -38,22 +38,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public <T> List<T> getByProjection(Class<T> type) {
-		return dao.findByIdUsuarioIsNotNull(type);
+		return dao.findByUsernameIsNotNull(type);
 	}
 
 	@Override
 	public <T> Iterable<T> getByProjection(Sort sort, Class<T> type) {
-		return dao.findByIdUsuarioIsNotNull(sort, type);
+		return dao.findByUsernameIsNotNull(sort, type);
 	}
 
 	@Override
 	public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
-		return dao.findByIdUsuarioIsNotNull(pageable, type);
+		return dao.findByUsernameIsNotNull(pageable, type);
 	}
 
 	@Override
-	public Usuario getOne(Integer id) throws NotFoundException {
-		var item = dao.findById(id);
+	public Usuario getOne(String username) throws NotFoundException {
+		var item = dao.findById(username);
 		if(item.isEmpty())
 			throw new NotFoundException();
 		return item.get();
@@ -63,7 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario add(Usuario item) throws DuplicateKeyException, InvalidDataException {
 		if(item == null)
 			throw new IllegalArgumentException();
-		if(dao.findById(item.getIdUsuario()).isPresent())
+		if(dao.findById(item.getUsername()).isPresent())
 			throw new DuplicateKeyException();
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
@@ -73,7 +73,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario change(Usuario item) throws NotFoundException, InvalidDataException  {
 		if(item == null)
 			throw new IllegalArgumentException();
-		if(dao.findById(item.getIdUsuario()).isEmpty())
+		if(dao.findById(item.getUsername()).isEmpty())
 			throw new NotFoundException();
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage());
@@ -83,12 +83,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void delete(Usuario item) {
 		if(item == null)
 			throw new IllegalArgumentException();
-		deleteById(item.getIdUsuario());
+		deleteById(item.getUsername());
 		
 	}
 	@Override
-	public void deleteById(Integer id) {
-		dao.deleteById(id);
+	public void deleteById(String username) {
+		dao.deleteById(username);
 	}
 
 }

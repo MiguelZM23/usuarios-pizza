@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import com.capgemini.domains.entities.Funcion;
 import com.capgemini.domains.entities.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,8 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioDTO {
-	@JsonProperty("id")
-	private int UsuarioId;
+	
 	@NotBlank
 	@JsonProperty("nombre")
 	private String nombre;
@@ -29,21 +27,21 @@ public class UsuarioDTO {
 	private String password;
 	@JsonProperty("telefono")
 	private String telefono;
-	@JsonProperty("email")
-	private String email;
+	@JsonProperty("username")
+	private String username;
 	@JsonProperty("Rol")
-	private List<Funcion> rol;
+	private String rol;
 
 	
 	public static Usuario from(UsuarioDTO source) {
-		return new Usuario(source.getUsuarioId(), source.getNombre(), source.getApellido1(), source.getApellido2(),
-				source.getPassword(), source.getTelefono(), source.getEmail(), source.getRol());
+		return new Usuario(source.getNombre(), source.getApellido1(), source.getApellido2(),
+				source.getPassword(), source.getTelefono(), source.getUsername(), source.getRol());
 	}
 
 	public static UsuarioDTO from(Usuario source) {
-		return new UsuarioDTO(source.getIdUsuario(), source.getNombre(), source.getPrimerApellido(),
-				source.getSegundoApellido(), source.getPassword(), source.getTelefono(), source.getEmail(),
-				source.getFunciones());
+		return new UsuarioDTO(source.getNombre(), source.getPrimerApellido(),
+				source.getSegundoApellido(), source.getPassword(), source.getTelefono(), source.getUsername(),
+				source.getRol());
 	}
 
 }
