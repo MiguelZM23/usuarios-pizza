@@ -39,11 +39,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()			
 			.addFilterAfter(new JWTAuthorizationFilter(SECRET), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/actuator/**").permitAll()
-			.antMatchers("/login").permitAll()
+			.antMatchers(
+					"/login/**",
+					"/api/v1/users/files/*",
+					"/api/v1/token/*",
+					"/v3/api-docs",
+					"/swagger-resources/**",
+					"/swagger-ui/**",
+					"/webjars/**",
+					"/api/v1/",
+					"/api/v1/uploads/**",
+					"/api/v1/favicon.ico"
+					).permitAll()
 //			.antMatchers(HttpMethod.POST, "/login").permitAll()
 //			.antMatchers(HttpMethod.GET, "/login").permitAll()
-			.antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
+//			.antMatchers(HttpMethod.GET, "/admin").hasRole("GERENTE")
+			//.antMatchers("/**").permitAll()
 			.anyRequest().authenticated();
 	}
 }

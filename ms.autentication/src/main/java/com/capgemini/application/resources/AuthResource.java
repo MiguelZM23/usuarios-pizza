@@ -39,13 +39,14 @@ public class AuthResource {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UsuarioService srv;
-
+	
 	@RequestMapping(path = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<AuthToken> login(@RequestParam("name") String username,
 			@RequestParam("password") String pwd) {
 
 		Usuario usr;
 		try {
+			System.out.println(passwordEncoder.encode("admin1"));
 			usr = srv.getOne(username);
 			if (!passwordEncoder.matches(pwd, usr.getPassword()))
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -74,6 +75,9 @@ public class AuthResource {
 		return "Bearer " + token;
 	}
 
+	
+	
+	
 	/**
 	 * /register (anonimo) /profile (Authorization) (get, put) menos la contraseña
 	 * /users (Admin)(get, post, put, delete) + roles menos la contraseña
