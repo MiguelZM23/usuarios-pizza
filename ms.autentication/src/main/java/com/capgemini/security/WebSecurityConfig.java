@@ -39,10 +39,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()			
 			.addFilterAfter(new JWTAuthorizationFilter(SECRET), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
+//			.antMatchers("/actuator/**").permitAll()
+//			.antMatchers("/login").permitAll()
+//			.antMatchers(HttpMethod.POST, "/login").permitAll()
+//			.antMatchers(HttpMethod.GET, "/login").permitAll()
+//			.antMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
 			.antMatchers(
 					"/login/**",
-					"/api/v1/users/files/*",
-					"/api/v1/token/*",
+					"/api/v3/users/files/*",
+					"/api/v3/token/*",
 					"/v3/api-docs",
 					"/swagger-resources/**",
 					"/swagger-ui/**",
@@ -51,10 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					"/api/v1/uploads/**",
 					"/api/v1/favicon.ico"
 					).permitAll()
-//			.antMatchers(HttpMethod.POST, "/login").permitAll()
-//			.antMatchers(HttpMethod.GET, "/login").permitAll()
-//			.antMatchers(HttpMethod.GET, "/admin").hasRole("GERENTE")
-			//.antMatchers("/**").permitAll()
 			.anyRequest().authenticated();
 	}
 }
